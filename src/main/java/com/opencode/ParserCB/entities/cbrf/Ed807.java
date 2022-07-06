@@ -1,5 +1,7 @@
-package com.opencode.ParserCB.entities;
+package com.opencode.ParserCB.entities.cbrf;
 
+import com.opencode.ParserCB.entities.cbrf_reference.CreationReason;
+import com.opencode.ParserCB.entities.cbrf_reference.InfoTypeCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +30,7 @@ public class Ed807 {
     private Date edDate;
 
     private String edAuthor;
-    
+
     private LocalDateTime creationDateTime;
 
     @Temporal(TemporalType.DATE)
@@ -36,11 +38,14 @@ public class Ed807 {
 
     private int directoryVersion;
 
-    @JoinColumn(name = "creation_reason_id")
-    private int creationReasonId;
-
-    @JoinColumn(name = "info_type_code_id")
-    private int infoTypeCodeId;
-
     private int edReceiver;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "creation_reason_id")
+    private CreationReason creationReason;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "info_type_code_id")
+    private InfoTypeCode infoTypeCode;
+
 }

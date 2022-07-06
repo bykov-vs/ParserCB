@@ -1,4 +1,4 @@
-package com.opencode.ParserCB.entities;
+package com.opencode.ParserCB.entities.cbrf_reference;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,6 @@ public class CreationReason {
     @Column(name = "creation_reason_id")
     private int creationReasonId;
 
-    private String code;
-
-    private String name;
+    @Embedded
+    private Info info;
 }

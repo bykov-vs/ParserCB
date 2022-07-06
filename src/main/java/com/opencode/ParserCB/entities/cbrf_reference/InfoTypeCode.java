@@ -1,4 +1,4 @@
-package com.opencode.ParserCB.entities;
+package com.opencode.ParserCB.entities.cbrf_reference;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,6 @@ public class InfoTypeCode {
     @Column(name = "info_type_code_id")
     private int infoTypeCodeId;
 
-    private String code;
-
-    private String name;
+    @Embedded
+    private Info info;
 }
