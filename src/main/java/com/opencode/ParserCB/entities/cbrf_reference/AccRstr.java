@@ -19,4 +19,9 @@ public class AccRstr {
 
     @Embedded
     private Info info;
+
+    public AccRstr (String code){
+        this.info = new Info(code);
+    }
+
 }

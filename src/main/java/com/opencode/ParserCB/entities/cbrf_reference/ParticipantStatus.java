@@ -19,4 +19,9 @@ public class ParticipantStatus {
 
     @Embedded
     private Info info;
+
+    public ParticipantStatus (String code){
+        this.info = new Info(code);
+    }
+
 }

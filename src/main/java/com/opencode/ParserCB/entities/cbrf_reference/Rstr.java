@@ -19,4 +19,9 @@ public class Rstr {
 
     @Embedded
     private Info info;
+
+    public Rstr (String code){
+        this.info = new Info(code);
+    }
+
 }

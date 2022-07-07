@@ -21,4 +21,9 @@ public class AccountStatus {
 
     @Embedded
     private Info info;
+
+    public AccountStatus (String code){
+        this.info = new Info(code);
+    }
+
 }
