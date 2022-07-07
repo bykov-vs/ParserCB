@@ -1,5 +1,7 @@
 package com.opencode.ParserCB.entities.cbrf;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.opencode.ParserCB.entities.cbrf_reference.ChangeType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class BicDirectoryEntry {
 
     @Id
@@ -19,12 +22,14 @@ public class BicDirectoryEntry {
     @Column(name = "bic_directory_entry_id")
     private int bicDirectoryEntryId;
 
+    @JacksonXmlProperty(localName = "BIC", isAttribute = true)
     private String bic;
-/*
+
+    @JacksonXmlProperty(localName = "ParticipantInfo")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "participant_info_id")
-    private int participantInfoId;
-*/
+    private ParticipantInfo participantInfoId;
+
     @OneToOne
     @JoinColumn(name = "ed_id")
     private Ed807 ed;

@@ -2,6 +2,7 @@ package com.opencode.ParserCB.services;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.opencode.ParserCB.entities.cbrf.BicDirectoryEntry;
 import com.opencode.ParserCB.entities.cbrf.Ed807;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,10 @@ public class MainParserService {
 
         System.out.println(ed807.getEdAuthor());
         System.out.println(ed807.getXmlns());
+        System.out.println(ed807.getDirectoryVersion());
+
+        for (BicDirectoryEntry b : ed807.getBicDirectoryEntries()){
+            System.out.println(b.getBic());
+        }
     }
 }

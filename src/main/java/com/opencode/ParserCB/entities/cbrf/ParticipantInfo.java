@@ -1,5 +1,6 @@
 package com.opencode.ParserCB.entities.cbrf;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.opencode.ParserCB.entities.cbrf_reference.PtType;
 import com.opencode.ParserCB.entities.cbrf_reference.Srvcs;
 import com.opencode.ParserCB.entities.cbrf_reference.XchType;
@@ -15,6 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class ParticipantInfo {
 
     @Id
