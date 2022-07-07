@@ -20,4 +20,8 @@ public class CreationReason {
 
     @Embedded
     private Info info;
+
+    public CreationReason (String s){
+        this.info = new Info(s);
+    }
 }

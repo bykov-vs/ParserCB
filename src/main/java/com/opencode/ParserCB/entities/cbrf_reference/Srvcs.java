@@ -19,4 +19,8 @@ public class Srvcs {
 
     @Embedded
     private Info info;
+
+    public Srvcs (String s){
+        this.info = new Info(s);
+    }
 }

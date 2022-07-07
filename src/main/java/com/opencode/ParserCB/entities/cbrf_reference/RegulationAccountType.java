@@ -19,4 +19,8 @@ public class RegulationAccountType {
 
     @Embedded
     private Info info;
+
+    public RegulationAccountType (String s){
+        this.info = new Info(s);
+    }
 }

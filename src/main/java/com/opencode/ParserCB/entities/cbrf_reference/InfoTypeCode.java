@@ -20,4 +20,8 @@ public class InfoTypeCode {
 
     @Embedded
     private Info info;
+
+    public InfoTypeCode (String s){
+        this.info = new Info(s);
+    }
 }

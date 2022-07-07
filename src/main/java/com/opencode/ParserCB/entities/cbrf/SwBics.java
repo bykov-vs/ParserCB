@@ -1,5 +1,6 @@
 package com.opencode.ParserCB.entities.cbrf;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,8 +19,10 @@ public class SwBics {
     @Column(name = "change_type_id")
     private int changeTypeId;
 
+    @JsonProperty("SWBIC")
     private String swBic;
 
+    @JsonProperty("DefaultSWBIC")
     private int defaultSwBic;
 
     @OneToOne

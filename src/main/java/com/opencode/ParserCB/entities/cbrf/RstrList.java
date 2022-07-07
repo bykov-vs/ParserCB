@@ -1,5 +1,6 @@
 package com.opencode.ParserCB.entities.cbrf;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.opencode.ParserCB.entities.cbrf_reference.Rstr;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,9 +21,11 @@ public class RstrList {
     @Column(name = "rstr_list_id")
     private int rstrListId;
 
+    @JsonProperty("RstrDate")
     @Temporal(TemporalType.DATE)
     private Date rstrDate;
 
+    @JsonProperty("Rstr")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rstr_id")
     private Rstr rstr;

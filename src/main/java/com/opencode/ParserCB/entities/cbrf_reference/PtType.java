@@ -19,4 +19,8 @@ public class PtType {
 
     @Embedded
     private Info info;
+
+    public PtType (String s){
+        this.info = new Info(s);
+    }
 }
