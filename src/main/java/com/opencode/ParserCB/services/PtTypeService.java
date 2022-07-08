@@ -2,6 +2,7 @@ package com.opencode.ParserCB.services;
 
 import com.opencode.ParserCB.entities.cbrf.Account;
 import com.opencode.ParserCB.entities.cbrf_reference.AccRstr;
+import com.opencode.ParserCB.entities.cbrf_reference.AccountStatus;
 import com.opencode.ParserCB.entities.cbrf_reference.PtType;
 import com.opencode.ParserCB.repositories.AccRstrRepo;
 import com.opencode.ParserCB.repositories.PtTypeRepo;
@@ -37,5 +38,9 @@ public class PtTypeService {
 
     public void delete(PtType ptType) {
         ptTypeRepo.delete(ptType);
+    }
+
+    public PtType findByCode(String code) {
+        return ptTypeRepo.findByCode(code);
     }
 }

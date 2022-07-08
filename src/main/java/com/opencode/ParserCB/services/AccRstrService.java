@@ -2,6 +2,7 @@ package com.opencode.ParserCB.services;
 
 import com.opencode.ParserCB.entities.cbrf.AccRstrList;
 import com.opencode.ParserCB.entities.cbrf_reference.AccRstr;
+import com.opencode.ParserCB.entities.cbrf_reference.AccountStatus;
 import com.opencode.ParserCB.repositories.AccRstrRepo;
 import com.opencode.ParserCB.services.exceptions.AccRstrNotFoundException;
 import com.opencode.ParserCB.services.exceptions.AccountNotFoundException;
@@ -35,5 +36,9 @@ public class AccRstrService {
 
     public void delete(AccRstr accRstr) {
         accRstrRepo.delete(accRstr);
+    }
+
+    public AccRstr findByCode(String code) {
+        return accRstrRepo.findByCode(code);
     }
 }

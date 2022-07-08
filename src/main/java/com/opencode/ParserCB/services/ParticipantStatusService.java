@@ -2,6 +2,7 @@ package com.opencode.ParserCB.services;
 
 import com.opencode.ParserCB.entities.cbrf.Account;
 import com.opencode.ParserCB.entities.cbrf_reference.AccRstr;
+import com.opencode.ParserCB.entities.cbrf_reference.AccountStatus;
 import com.opencode.ParserCB.entities.cbrf_reference.ParticipantStatus;
 import com.opencode.ParserCB.repositories.AccRstrRepo;
 import com.opencode.ParserCB.repositories.ParticipantStatusRepo;
@@ -37,5 +38,9 @@ public class ParticipantStatusService {
 
     public void delete(ParticipantStatus participantStatus) {
         participantStatusRepo.delete(participantStatus);
+    }
+
+    public ParticipantStatus findByCode(String code) {
+        return participantStatusRepo.findByCode(code);
     }
 }

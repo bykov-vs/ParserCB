@@ -38,4 +38,8 @@ public class CreationReasonService {
     public void delete(CreationReason creationReason) {
         creationReasonRepo.delete(creationReason);
     }
+
+    public CreationReason findByCode(String code) {
+        return creationReasonRepo.findByCode(code);
+    }
 }

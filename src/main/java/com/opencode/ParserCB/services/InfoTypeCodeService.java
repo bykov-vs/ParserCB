@@ -38,4 +38,8 @@ public class InfoTypeCodeService {
     public void delete(InfoTypeCode infoTypeCode) {
         infoTypeCodeRepo.delete(infoTypeCode);
     }
+
+    public InfoTypeCode findByCode(String code) {
+        return infoTypeCodeRepo.findByCode(code);
+    }
 }

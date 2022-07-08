@@ -37,4 +37,8 @@ public class AccountStatusService {
     public void delete(AccountStatus accountStatus) throws AccountStatusNotFoundException {
         accountStatusRepo.delete(accountStatus);
     }
+
+    public AccountStatus findByCode(String code) {
+        return accountStatusRepo.findByCode(code);
+    }
 }

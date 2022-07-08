@@ -2,6 +2,7 @@ package com.opencode.ParserCB.services;
 
 import com.opencode.ParserCB.entities.cbrf.Account;
 import com.opencode.ParserCB.entities.cbrf_reference.AccRstr;
+import com.opencode.ParserCB.entities.cbrf_reference.AccountStatus;
 import com.opencode.ParserCB.entities.cbrf_reference.Srvcs;
 import com.opencode.ParserCB.repositories.AccRstrRepo;
 import com.opencode.ParserCB.repositories.SrvcsRepo;
@@ -37,5 +38,9 @@ public class SrvcsService {
 
     public void delete(Srvcs srvcs) {
         srvcsRepo.delete(srvcs);
+    }
+
+    public Srvcs findByCode(String code) {
+        return srvcsRepo.findByCode(code);
     }
 }

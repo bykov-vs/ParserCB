@@ -2,6 +2,7 @@ package com.opencode.ParserCB.services;
 
 import com.opencode.ParserCB.entities.cbrf.Account;
 import com.opencode.ParserCB.entities.cbrf_reference.AccRstr;
+import com.opencode.ParserCB.entities.cbrf_reference.AccountStatus;
 import com.opencode.ParserCB.entities.cbrf_reference.XchType;
 import com.opencode.ParserCB.repositories.AccRstrRepo;
 import com.opencode.ParserCB.repositories.XchTypeRepo;
@@ -36,5 +37,9 @@ public class XchTypeService {
 
     public void delete(XchType xchType) {
         xchTypeRepo.delete(xchType);
+    }
+
+    public XchType findByCode(String code) {
+        return xchTypeRepo.findByCode(code);
     }
 }
