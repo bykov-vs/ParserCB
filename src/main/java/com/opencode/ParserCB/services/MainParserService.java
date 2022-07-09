@@ -86,37 +86,6 @@ public class MainParserService {
             for (BicDirectoryEntry entry : bicDirectoryEntries) {
                 entry.setEd(ed807);
 
-                //Сохранение всех аккаунтов, привязанных к данному БИК
-                for (Account acc : entry.getAccounts()) {
-                    acc.setBicDirectoryEntry(entry);
-
-                    AccountStatus accountStatus = accountStatusService.findByCode(acc.getAccountStatus()
-                            .getInfo()
-                            .getCode());
-                    RegulationAccountType regulationAccountType = regulationAccountTypeService.findByCode(acc
-                            .getRegulationAccountType()
-                            .getInfo()
-                            .getCode());
-
-                    acc.setRegulationAccountType(regulationAccountType);
-                    acc.setAccountStatus(accountStatus);
-
-                    AccRstrList accRstrList = acc.getAccRstrList();
-
-                    AccRstr accRstr = accRstrService.findByCode(accRstrList
-                            .getAccRstr()
-                            .getInfo()
-                            .getCode());
-
-
-
-                    accRstrList.setAccRstr(accRstr);
-                    accRstrListService.save(accRstrList);
-                    acc.setAccRstrList(accRstrList);
-
-                    accountService.save(acc);
-                }
-
                 //Сохранение ParticipantInfo, привязанного к данному БИК
                 ParticipantInfo participantInfo = entry.getParticipantInfo();
 
@@ -139,20 +108,24 @@ public class MainParserService {
 
                 RstrList rstrList = participantInfo.getRstrList();
 
-                Rstr rstr = rstrService.findByCode(rstrList
-                        .getRstr()
-                        .getInfo()
-                        .getCode());
+                if (rstrList != null) {
+                    Rstr rstr = rstrService.findByCode(rstrList
+                            .getRstr()
+                            .getInfo()
+                            .getCode());
 
-                rstrList.setRstr(rstr);
+                    rstrList.setRstr(rstr);
+                    rstrListService.save(rstrList);
+                    participantInfo.setRstrList(rstrList);
+                }
 
                 participantInfo.setParticipantStatus(participantStatus);
                 participantInfo.setSrvcs(srvcs);
                 participantInfo.setXchType(xchType);
                 participantInfo.setPtType(ptType);
-                participantInfo.setRstrList(rstrList);
 
                 participantInfoService.save(participantInfo);
+                bicDirectoryEntryService.save(entry);
 
                 //Сохранение SWBIC, привязанного к данному БИК
                 SwBics swBics = entry.getSwBics();
@@ -160,7 +133,34 @@ public class MainParserService {
                     swBics.setBicDirectoryEntry(entry);
                     swBicsService.save(swBics);
                 }
-                bicDirectoryEntryService.save(entry);
+                
+                //Сохранение всех аккаунтов, привязанных к данному БИК
+                for (Account acc : entry.getAccounts()) {
+                    acc.setBicDirectoryEntry(entry);
+
+                    AccountStatus accountStatus = accountStatusService.findByCode(acc.getAccountStatus()
+                            .getInfo()
+                            .getCode());
+                    RegulationAccountType regulationAccountType = regulationAccountTypeService.findByCode(acc
+                            .getRegulationAccountType()
+                            .getInfo()
+                            .getCode());
+
+                    AccRstrList accRstrList = acc.getAccRstrList();
+                    if (accRstrList != null){
+                        AccRstr accRstr = accRstrService.findByCode(accRstrList.
+                                getAccRstr().
+                                getInfo().
+                                getCode());
+                        accRstrList.setAccRstr(accRstr);
+                        accRstrListService.save(accRstrList);
+                        acc.setAccRstrList(accRstrList);
+                    }
+
+                    acc.setRegulationAccountType(regulationAccountType);
+                    acc.setAccountStatus(accountStatus);
+                    accountService.save(acc);
+                }
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
