@@ -7,19 +7,21 @@ import com.opencode.ParserCB.entities.cbrf_reference.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.stream.Stream;
+import java.util.List;
+
 
 @Service
 public class MainParserService {
 
-
-
     @Autowired
     private  InfoTypeCodeService infoTypeCodeService;
+
+    @Autowired
+    private ChangeTypeService changeTypeService;
+
     @Autowired
     private CreationReasonService creationReasonService;
     @Autowired
@@ -86,6 +88,12 @@ public class MainParserService {
             for (BicDirectoryEntry entry : bicDirectoryEntries) {
                 entry.setEd(ed807);
 
+                ChangeType changeType = entry.getChangeType();
+                if (changeType != null){
+                    entry.setChangeType(changeTypeService.findByCode(changeType
+                            .getInfo()
+                            .getCode()));
+                }
                 //Сохранение ParticipantInfo, привязанного к данному БИК
                 ParticipantInfo participantInfo = entry.getParticipantInfo();
 
@@ -133,7 +141,7 @@ public class MainParserService {
                     swBics.setBicDirectoryEntry(entry);
                     swBicsService.save(swBics);
                 }
-                
+
                 //Сохранение всех аккаунтов, привязанных к данному БИК
                 for (Account acc : entry.getAccounts()) {
                     acc.setBicDirectoryEntry(entry);
@@ -167,5 +175,21 @@ public class MainParserService {
             System.out.println("====================");
             e.printStackTrace();
         }
+    }
+
+    public List<?> getInfoHandbook(String handbook){
+        if(handbook.equals("AccountStatus")) return accountStatusService.findAll();
+        if(handbook.equals("AccRstr")) return accRstrService.findAll();
+        if(handbook.equals("ChangeType")) return changeTypeService.findAll();
+        if(handbook.equals("CreationReason")) return creationReasonService.findAll();
+        if(handbook.equals("InfoTypeCode")) return infoTypeCodeService.findAll();
+        if(handbook.equals("ParticipantStatus")) return participantStatusService.findAll();
+        if(handbook.equals("PtType")) return ptTypeService.findAll();
+        if(handbook.equals("RegulationAccountType")) return regulationAccountTypeService.findAll();
+        if(handbook.equals("Rstr")) return rstrService.findAll();
+        if(handbook.equals("Srvcs")) return srvcsService.findAll();
+        if(handbook.equals("XchType")) return xchTypeService.findAll();
+
+        return null;
     }
 }
