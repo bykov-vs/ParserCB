@@ -24,4 +24,8 @@ public class InfoTypeCode {
     public InfoTypeCode (String code){
         this.info = new Info(code);
     }
+
+    public InfoTypeCode(String code, String name) {
+        this.info = new Info(code, name);
+    }
 }

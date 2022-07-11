@@ -30,12 +30,41 @@
                     <button class="mt-2 btn btn-primary" type="submit">выбрать</button>
 
                 </form>
-                <table class="mt-2 table table-info table-striped-columns">
+                <table class="mt-2 table table-info table-striped">
                     <tr th:each="i : ${information}">
+                        <td><input type="radio" th:name="rd" th:value="*{i.info.code}" name="radios" class="form-check-input"></td>
                         <td th:text="${i.info.code}"></td>
                         <td th:text="${i.info.name}"></td>
                     </tr>
                 </table>
+
+                <p th:text="*{rd}"></p>
+
+                <form th:if="${!hidden}" action="/add/" method="get">
+                    <div>
+                        <button type="submit" th:name="handbook" th:value="${handbook}"
+                                class="btn btn-success">Добавить
+                        </button>
+                    </div>
+                </form>
+
+                <div th:if="${addEntityKey}">
+                    <form th:action="@{/add/}" method="post">
+                        <input type="text" th:name="code"/>
+                        <input type="text" th:name="name"/>
+                        <button class="mt-2 btn btn-primary" th:name="handbook" th:value="${handbook}"
+                                type="submit">СОХРАНИТЬ
+                        </button>
+                    </form>
+                    <span th:if="error!=null" th:text="'Ошибка: ' + ${error}"></span>
+                </div>
+
+
+                <div th:if="${hidden}">
+                    <button type="button mb-2" class="btn btn-success">Добавить</button>
+                    <button type="button mb-2" class="btn btn-warning">Изменить</button>
+                    <button type="button mb-2" class="btn btn-danger">Удалить</button>
+                </div>
 
             </div>
         </div>

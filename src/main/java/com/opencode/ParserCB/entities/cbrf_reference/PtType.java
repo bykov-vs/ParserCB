@@ -24,4 +24,8 @@ public class PtType {
         this.info = new Info(code);
     }
 
+    public PtType(String code, String name) {
+        this.info = new Info(code, name);
+    }
+
 }

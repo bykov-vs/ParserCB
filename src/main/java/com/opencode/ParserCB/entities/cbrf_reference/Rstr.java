@@ -24,4 +24,8 @@ public class Rstr {
         this.info = new Info(code);
     }
 
+    public Rstr(String code, String name) {
+        this.info = new Info(code, name);
+    }
+
 }

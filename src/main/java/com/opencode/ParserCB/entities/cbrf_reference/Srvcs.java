@@ -24,4 +24,8 @@ public class Srvcs {
         this.info = new Info(code);
     }
 
+    public Srvcs(String code, String name) {
+        this.info = new Info(code, name);
+    }
+
 }

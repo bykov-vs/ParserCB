@@ -24,4 +24,8 @@ public class ParticipantStatus {
         this.info = new Info(code);
     }
 
+    public ParticipantStatus(String code, String name) {
+        this.info = new Info(code, name);
+    }
+
 }

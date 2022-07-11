@@ -4,6 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.opencode.ParserCB.entities.cbrf.*;
 import com.opencode.ParserCB.entities.cbrf_reference.*;
+import com.opencode.ParserCB.services.exceptions.CodeAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -191,5 +192,54 @@ public class MainParserService {
         if(handbook.equals("XchType")) return xchTypeService.findAll();
 
         return null;
+    }
+
+    public void saveHandbookEntity(String code, String name, String handbook){
+
+
+        if(handbook.equals("AccountStatus")){
+            if (accountStatusService.findByCode(code) != null) throw new CodeAlreadyExistsException();
+            accountStatusService.save(new AccountStatus(code, name));
+        }
+        if(handbook.equals("AccRstr")){
+            if (accRstrService.findByCode(code) != null) throw new CodeAlreadyExistsException();
+            accRstrService.save(new AccRstr(code, name));
+        }
+        if(handbook.equals("ChangeType")) {
+            if (changeTypeService.findByCode(code) != null) throw new CodeAlreadyExistsException();
+            changeTypeService.save(new ChangeType(code, name));
+        }
+        if(handbook.equals("CreationReason")) {
+            if (creationReasonService.findByCode(code) != null) throw new CodeAlreadyExistsException();
+            creationReasonService.save(new CreationReason(code, name));
+        }
+        if(handbook.equals("InfoTypeCode")) {
+            if (infoTypeCodeService.findByCode(code) != null) throw new CodeAlreadyExistsException();
+            infoTypeCodeService.save(new InfoTypeCode(code, name));
+        }
+        if(handbook.equals("ParticipantStatus")) {
+            if (participantStatusService.findByCode(code) != null) throw new CodeAlreadyExistsException();
+            participantStatusService.save(new ParticipantStatus(code, name));
+        }
+        if(handbook.equals("PtType")){
+            if (ptTypeService.findByCode(code) != null) throw new CodeAlreadyExistsException();
+            ptTypeService.save(new PtType(code, name));
+        }
+        if(handbook.equals("RegulationAccountType")) {
+            if (regulationAccountTypeService.findByCode(code) != null) throw new CodeAlreadyExistsException();
+            regulationAccountTypeService.save(new RegulationAccountType(code, name));
+        }
+        if(handbook.equals("Rstr")){
+            if (rstrService.findByCode(code) != null) throw new CodeAlreadyExistsException();
+            rstrService.save(new Rstr(code, name));
+        }
+        if(handbook.equals("Srvcs")){
+            if (srvcsService.findByCode(code) != null) throw new CodeAlreadyExistsException();
+            srvcsService.save(new Srvcs(code, name));
+        }
+        if(handbook.equals("XchType")){
+            if (xchTypeService.findByCode(code) != null) throw new CodeAlreadyExistsException();
+            xchTypeService.save(new XchType(code, name));
+        }
     }
 }

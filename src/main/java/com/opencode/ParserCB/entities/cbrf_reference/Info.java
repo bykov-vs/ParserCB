@@ -21,4 +21,8 @@ public class Info {
     public Info(String code) {
         this.code = code;
     }
+    public Info(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
 }

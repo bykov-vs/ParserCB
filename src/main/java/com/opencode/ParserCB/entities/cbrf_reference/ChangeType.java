@@ -26,4 +26,8 @@ public class ChangeType {
         this.info = new Info(code);
     }
 
+    public ChangeType(String code, String name) {
+        this.info = new Info(code, name);
+    }
+
 }

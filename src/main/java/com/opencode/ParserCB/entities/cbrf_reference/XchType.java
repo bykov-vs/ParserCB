@@ -24,4 +24,8 @@ public class XchType {
         this.info = new Info(code);
     }
 
+    public XchType(String code, String name) {
+        this.info = new Info(code, name);
+    }
+
 }

@@ -24,4 +24,8 @@ public class RegulationAccountType {
         this.info = new Info(code);
     }
 
+    public RegulationAccountType(String code, String name) {
+        this.info = new Info(code, name);
+    }
+
 }

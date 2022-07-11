@@ -24,4 +24,8 @@ public class AccRstr {
         this.info = new Info(code);
     }
 
+    public AccRstr(String code, String name) {
+        this.info = new Info(code, name);
+    }
+
 }

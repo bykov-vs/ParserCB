@@ -26,4 +26,7 @@ public class AccountStatus {
         this.info = new Info(code);
     }
 
+    public AccountStatus(String code, String name) {
+        this.info = new Info(code, name);
+    }
 }
