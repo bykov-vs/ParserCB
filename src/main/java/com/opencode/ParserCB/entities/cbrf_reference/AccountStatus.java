@@ -19,6 +19,15 @@ public class AccountStatus {
     @Column(name = "account_status_id")
     private int accountStatusId;
 
+
     @Embedded
     private Info info;
+
+    public AccountStatus (String code){
+        this.info = new Info(code);
+    }
+
+    public AccountStatus(String code, String name) {
+        this.info = new Info(code, name);
+    }
 }

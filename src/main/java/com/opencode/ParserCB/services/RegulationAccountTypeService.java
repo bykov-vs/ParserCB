@@ -38,4 +38,8 @@ public class RegulationAccountTypeService {
     public void delete(RegulationAccountType regulationAccountType) {
         regulationAccountTypeRepo.delete(regulationAccountType);
     }
+
+    public RegulationAccountType findByCode(String code) {
+        return regulationAccountTypeRepo.findByCode(code);
+    }
 }

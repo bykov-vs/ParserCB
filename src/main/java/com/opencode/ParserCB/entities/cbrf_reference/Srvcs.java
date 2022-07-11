@@ -19,4 +19,13 @@ public class Srvcs {
 
     @Embedded
     private Info info;
+
+    public Srvcs (String code){
+        this.info = new Info(code);
+    }
+
+    public Srvcs(String code, String name) {
+        this.info = new Info(code, name);
+    }
+
 }

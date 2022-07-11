@@ -1,6 +1,7 @@
 package com.opencode.ParserCB.services;
 
 import com.opencode.ParserCB.entities.cbrf.Account;
+import com.opencode.ParserCB.entities.cbrf_reference.AccountStatus;
 import com.opencode.ParserCB.entities.cbrf_reference.ChangeType;
 import com.opencode.ParserCB.repositories.AccountRepo;
 import com.opencode.ParserCB.repositories.ChangeTypeRepo;
@@ -36,5 +37,9 @@ public class ChangeTypeService {
 
     public void delete(ChangeType changeType) {
         changeTypeRepo.delete(changeType);
+    }
+
+    public ChangeType findByCode(String code) {
+        return changeTypeRepo.findByCode(code);
     }
 }

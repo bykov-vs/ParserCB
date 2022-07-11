@@ -19,4 +19,13 @@ public class XchType {
 
     @Embedded
     private Info info;
+
+    public XchType (String code){
+        this.info = new Info(code);
+    }
+
+    public XchType(String code, String name) {
+        this.info = new Info(code, name);
+    }
+
 }

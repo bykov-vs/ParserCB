@@ -21,4 +21,13 @@ public class ChangeType {
 
     @Embedded
     private Info info;
+
+    public ChangeType (String code){
+        this.info = new Info(code);
+    }
+
+    public ChangeType(String code, String name) {
+        this.info = new Info(code, name);
+    }
+
 }

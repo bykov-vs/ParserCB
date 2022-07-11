@@ -19,4 +19,13 @@ public class ParticipantStatus {
 
     @Embedded
     private Info info;
+
+    public ParticipantStatus (String code){
+        this.info = new Info(code);
+    }
+
+    public ParticipantStatus(String code, String name) {
+        this.info = new Info(code, name);
+    }
+
 }
