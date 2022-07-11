@@ -30,8 +30,8 @@ public class ParticipantInfo {
     @JacksonXmlProperty(localName = "NameP", isAttribute = true)
     private String nameP;
 
-    @JacksonXmlProperty(localName = "EndName", isAttribute = true)
-    private String endName;
+    @JacksonXmlProperty(localName = "EngName", isAttribute = true)
+    private String engName;
 
     @JacksonXmlProperty(localName = "CntrCd", isAttribute = true)
     private String cntrCd;
@@ -76,7 +76,7 @@ public class ParticipantInfo {
 
     @JacksonXmlProperty(localName = "XchType", isAttribute = true)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "xch_list_id")
+    @JoinColumn(name = "xch_type_id")
     private XchType xchType;
 
     @JacksonXmlProperty(localName = "Srvcs", isAttribute = true)

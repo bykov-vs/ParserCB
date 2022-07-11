@@ -39,13 +39,18 @@ public class MainController {
     }
 
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile multipartFile, Model model) throws IOException {
-        mainParserService.parseFile(multipartFile.getInputStream());
+    public String uploadFile(@RequestParam("file") MultipartFile multipartFile, Model model) {
+        try {
+            mainParserService.parseFile(multipartFile.getInputStream());
+        }catch (Exception e){
+            model.addAttribute("errorFile", "Ошибка чтения файла!");
+        }
+
         return "redirect:/";
     }
 
     @PostMapping("/")
-    public String changeHandbook(@RequestParam("handbook") String handbook, Model model) throws IOException {
+    public String changeHandbook(@RequestParam("handbook") String handbook, Model model) {
         List<?> information = mainParserService.getInfoHandbook(handbook);
         ArrayList<String> options = new ArrayList<>();
         options.add("AccountStatus");
@@ -64,6 +69,8 @@ public class MainController {
         model.addAttribute("information", information);
         model.addAttribute("hidden", false);
         model.addAttribute("handbook", handbook);
+        model.addAttribute("changeEntityKey", false);
+        model.addAttribute("addEntityKey", false);
         return "index";
     }
 
@@ -74,6 +81,8 @@ public class MainController {
         model.addAttribute("addEntityKey", true);
         model.addAttribute("information", information);
         model.addAttribute("handbook", handbook);
+        model.addAttribute("hidden", false);
+        model.addAttribute("changeEntityKey", false);
         return "index";
     }
 
@@ -85,11 +94,45 @@ public class MainController {
         try{
             mainParserService.saveHandbookEntity(code, name, handbook);
         }catch (CodeAlreadyExistsException e){
-            model.addAttribute("error", e.getMessage());
+            model.addAttribute("hidden", true);
+            model.addAttribute("changeEntityKey", false);
             //model.addAttribute("addEntityKey", true);
             return "index";
         }
 
+        return "redirect:/";
+    }
+
+    @GetMapping("/list")
+    public String changeEntity(@RequestParam(value = "code") String code,
+                               @RequestParam(value = "handbook") String handbook,
+                               @RequestParam(value = "action") int action,
+                               Model model){
+        if (action == 0){
+
+            model.addAttribute("handbook", handbook);
+            model.addAttribute("action", action);
+            model.addAttribute("changeEntityKey", true);
+            model.addAttribute("addEntityKey", false);
+            model.addAttribute("hidden", true);
+            return "index";
+        }
+        try {
+            mainParserService.deleteHandbookEntity(handbook, code);
+            return "redirect:/";
+        }catch (Exception e){
+            model.addAttribute("error","Удаление НЕ совершено");
+            return "index";
+        }
+    }
+
+    @PostMapping("/list/change")
+    public String changeEntityAndSave(@RequestParam(value = "code") String code,
+                                      @RequestParam(value = "name") String name,
+                                      @RequestParam(value = "handbook") String handbook,
+                                      Model model){
+
+        mainParserService.saveHandbookEntity(code, name, handbook);
         return "redirect:/";
     }
 }

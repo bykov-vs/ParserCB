@@ -19,6 +19,7 @@ public class AccountStatus {
     @Column(name = "account_status_id")
     private int accountStatusId;
 
+
     @Embedded
     private Info info;
 

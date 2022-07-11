@@ -17,6 +17,7 @@
                     </div>
                     <button class="mt-2 mb-5 btn btn-primary" type="submit">Загрузить</button>
                 </form>
+                <span th:if="${errorFile}" th:text="${error}"></span>
             </div>
 
             <div class="col border-top border-start border-primary">
@@ -30,41 +31,72 @@
                     <button class="mt-2 btn btn-primary" type="submit">выбрать</button>
 
                 </form>
-                <table class="mt-2 table table-info table-striped">
-                    <tr th:each="i : ${information}">
-                        <td><input type="radio" th:name="rd" th:value="*{i.info.code}" name="radios" class="form-check-input"></td>
-                        <td th:text="${i.info.code}"></td>
-                        <td th:text="${i.info.name}"></td>
-                    </tr>
-                </table>
 
-                <p th:text="*{rd}"></p>
+                <div>
+                    <form   action="/list" method="get">
 
-                <form th:if="${!hidden}" action="/add/" method="get">
-                    <div>
-                        <button type="submit" th:name="handbook" th:value="${handbook}"
-                                class="btn btn-success">Добавить
-                        </button>
+                        <table class="mt-2 table table-info table-striped" >
+                            <input th:name="handbook" th:value="${handbook}" hidden="true"/>
+                            <tr th:each="i : ${information}">
+                                <td><input type="radio" th:name="code" th:value="${i.info.code}" class="form-check-input"></td>
+                                <td th:text="${i.info.code}"></td>
+                                <td th:text="${i.info.name}"></td>
+                            </tr>
+                        </table>
+                        <div th:if="${!hidden}">
+                            <button type="submit" th:name="action" th:value="0"
+                                    class="btn btn-warning">Изменить
+                            </button>
+
+                            <button type="submit" th:name="action" th:value="1"
+                                    class="btn btn-danger">Удалить
+                            </button>
+                        </div>
+                    </form>
+
+                    <div th:if="${changeEntityKey}">
+                        <form th:action="@{/list/change}" method="post"  >
+                            <div class="input-group mb-2">
+                                <span class="input-group-text">Code</span>
+                                <input class="form-control" type="text" th:name="code" th:text="${code}" />
+                            </div>
+                            <div class="input-group mb-2">
+                                <span class="input-group-text">Name</span>
+                                <input class="form-control" type="text" th:name="name" />
+                            </div>
+                            <button class="mt-2 btn btn-primary" th:name="handbook" th:value="${handbook}"
+                                    type="submit">СОХРАНИТЬ
+                            </button>
+                        </form>
                     </div>
-                </form>
+                </div>
 
-                <div th:if="${addEntityKey}">
-                    <form th:action="@{/add/}" method="post">
-                        <input type="text" th:name="code"/>
-                        <input type="text" th:name="name"/>
-                        <button class="mt-2 btn btn-primary" th:name="handbook" th:value="${handbook}"
-                                type="submit">СОХРАНИТЬ
+                <div>
+                    <form th:if="${!hidden}" action="/add/" method="get">
+                        <button type="submit" th:name="handbook" th:value="${handbook}"
+                                class="btn btn-success mt-2 mb-2">Добавить
                         </button>
                     </form>
-                    <span th:if="error!=null" th:text="'Ошибка: ' + ${error}"></span>
+
+                    <div th:if="${addEntityKey}">
+                        <form th:action="@{/add/}" method="post">
+                            <div class="input-group mb-2">
+                                <span class="input-group-text">Code</span>
+                                <input class="form-control" type="text" th:name="code" />
+                            </div>
+                                <div class="input-group mb-2">
+                                    <span class="input-group-text">Name</span>
+                                    <input class="form-control" type="text" th:name="name" />
+                                </div>
+                            <button class="mt-2 btn btn-primary" th:name="handbook" th:value="${handbook}"
+                                    type="submit">СОХРАНИТЬ
+                            </button>
+                        </form>
+                        <span th:if="${error}" th:text="'Ошибка: ' + ${error}"></span>
+                    </div>
+
                 </div>
 
-
-                <div th:if="${hidden}">
-                    <button type="button mb-2" class="btn btn-success">Добавить</button>
-                    <button type="button mb-2" class="btn btn-warning">Изменить</button>
-                    <button type="button mb-2" class="btn btn-danger">Удалить</button>
-                </div>
 
             </div>
         </div>
