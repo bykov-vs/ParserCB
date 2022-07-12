@@ -23,10 +23,11 @@ public class AddRecordController {
     public String addEntity(@RequestParam(value = "handbook") String handbook, Model model) {
         List<?> information = mainParserService.getInfoHandbook(handbook);
 
+        model.addAttribute("contentChange", true);
         model.addAttribute("addEntityKey", true);
         model.addAttribute("information", information);
         model.addAttribute("handbook", handbook);
-        model.addAttribute("hidden", false);
+        model.addAttribute("hidden", true);
         model.addAttribute("changeEntityKey", false);
         return "index";
     }
@@ -41,7 +42,6 @@ public class AddRecordController {
         }catch (CodeAlreadyExistsException e){
             model.addAttribute("hidden", true);
             model.addAttribute("changeEntityKey", false);
-            //model.addAttribute("addEntityKey", true);
             return "index";
         }
 

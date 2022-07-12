@@ -34,6 +34,7 @@ public class MainController implements WebMvcConfigurer {
         options.add("Srvcs");
         options.add("XchType");
 
+        model.addAttribute("contentChange", false);
         model.addAttribute("handbooks", options);
         model.addAttribute("hidden", true);
         return "index";
@@ -47,6 +48,21 @@ public class MainController implements WebMvcConfigurer {
             model.addAttribute("errorFile", "Ошибка чтения файла!");
         }
 
+        ArrayList<String> options = new ArrayList<>();
+        options.add("AccountStatus");
+        options.add("AccRstr");
+        options.add("ChangeType");
+        options.add("CreationReason");
+        options.add("InfoTypeCode");
+        options.add("ParticipantStatus");
+        options.add("PtType");
+        options.add("RegulationAccountType");
+        options.add("Rstr");
+        options.add("Srvcs");
+        options.add("XchType");
+
+        model.addAttribute("handbooks", options);
+        model.addAttribute("hidden", true);
         return "redirect:/";
     }
 
@@ -73,5 +89,10 @@ public class MainController implements WebMvcConfigurer {
         model.addAttribute("changeEntityKey", false);
         model.addAttribute("addEntityKey", false);
         return "index";
+    }
+
+    @GetMapping("/back")
+    public String back(){
+        return "redirect:/";
     }
 }

@@ -21,10 +21,11 @@ public class ChangeHandbookController {
                                @RequestParam(value = "handbook") String handbook,
                                @RequestParam(value = "action") int action,
                                Model model){
+        model.addAttribute("contentChange", true);
         if (action == 0){
             model.addAttribute("handbook", handbook);
             model.addAttribute("action", action);
-            model.addAttribute("code", code);
+            model.addAttribute("prevValue", code);
             model.addAttribute("changeEntityKey", true);
             model.addAttribute("addEntityKey", false);
             model.addAttribute("hidden", true);
@@ -32,9 +33,12 @@ public class ChangeHandbookController {
         }
         try {
             mainParserService.deleteHandbookEntity(handbook, code);
-            return "redirect:/";
+            model.addAttribute("hidden", true);
+            model.addAttribute("error","Успешно");
+            return "index";
         }catch (Exception e){
-            model.addAttribute("error","Удаление НЕ совершено");
+            model.addAttribute("hidden", true);
+            model.addAttribute("error","Неуспешно");
             return "index";
         }
     }
