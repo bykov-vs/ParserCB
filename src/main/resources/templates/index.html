@@ -33,12 +33,12 @@
                 </form>
 
                 <div>
-                    <form   action="/list" method="get">
-
+                    <form   action="/list/" method="get">
                         <table class="mt-2 table table-info table-striped" >
                             <input th:name="handbook" th:value="${handbook}" hidden="true"/>
                             <tr th:each="i : ${information}">
-                                <td><input type="radio" th:name="code" th:value="${i.info.code}" class="form-check-input"></td>
+                                <td><input type="radio" th:name="code" th:value="${i.info.code}" required
+                                           class="form-check-input"></td>
                                 <td th:text="${i.info.code}"></td>
                                 <td th:text="${i.info.name}"></td>
                             </tr>
@@ -56,13 +56,14 @@
 
                     <div th:if="${changeEntityKey}">
                         <form th:action="@{/list/change}" method="post"  >
+                            <input type="text" th:name="prevValue" th:value="${code}" hidden>
                             <div class="input-group mb-2">
                                 <span class="input-group-text">Code</span>
-                                <input class="form-control" type="text" th:name="code" th:text="${code}" />
+                                <input class="form-control" type="text" th:name="code" th:text="${code}" required/>
                             </div>
                             <div class="input-group mb-2">
                                 <span class="input-group-text">Name</span>
-                                <input class="form-control" type="text" th:name="name" />
+                                <input class="form-control" type="text" th:name="name" required />
                             </div>
                             <button class="mt-2 btn btn-primary" th:name="handbook" th:value="${handbook}"
                                     type="submit">СОХРАНИТЬ
@@ -82,11 +83,12 @@
                         <form th:action="@{/add/}" method="post">
                             <div class="input-group mb-2">
                                 <span class="input-group-text">Code</span>
-                                <input class="form-control" type="text" th:name="code" />
+                                <input class="form-control" type="text" th:name="code" required/>
                             </div>
+
                                 <div class="input-group mb-2">
                                     <span class="input-group-text">Name</span>
-                                    <input class="form-control" type="text" th:name="name" />
+                                    <input class="form-control" type="text" th:name="name" required/>
                                 </div>
                             <button class="mt-2 btn btn-primary" th:name="handbook" th:value="${handbook}"
                                     type="submit">СОХРАНИТЬ

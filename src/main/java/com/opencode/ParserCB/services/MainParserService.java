@@ -204,80 +204,79 @@ public class MainParserService {
         if(handbook.equals("Srvcs"))  srvcsService.delete(srvcsService.findByCode(code));
         if(handbook.equals("XchType"))  xchTypeService.delete(xchTypeService.findByCode(code));
     }
-    public void saveHandbookEntity(String code, String name, String handbook){
-
+    public void saveHandbookEntity(String code, String name, String handbook, String prevValue){
         if(handbook.equals("AccountStatus")){
-            AccountStatus accountStatus = accountStatusService.findByCode(code);
+            AccountStatus accountStatus = accountStatusService.findByCode(prevValue);
             if (accountStatus != null){
                 accountStatus.setInfo(new Info(code, name));
                 accountStatusService.save(accountStatus);
             }else accountStatusService.save(new AccountStatus(code, name));
         }
         if(handbook.equals("AccRstr")){
-            AccRstr accRstr = accRstrService.findByCode(code);
+            AccRstr accRstr = accRstrService.findByCode(prevValue);
             if (accRstr != null) {
                 accRstr.setInfo(new Info(code, name));
                 accRstrService.save(accRstr);
             } else accRstrService.save(new AccRstr(code, name));
         }
         if(handbook.equals("ChangeType")) {
-            ChangeType changeType = changeTypeService.findByCode(code);
+            ChangeType changeType = changeTypeService.findByCode(prevValue);
             if (changeType != null){
                 changeType.setInfo(new Info(code, name));
                 changeTypeService.save(changeType);
             } else changeTypeService.save(new ChangeType(code, name));
         }
         if(handbook.equals("CreationReason")) {
-            CreationReason creationReason = creationReasonService.findByCode(code);
+            CreationReason creationReason = creationReasonService.findByCode(prevValue);
             if (creationReason != null) {
                 creationReason.setInfo(new Info(code, name));
                 creationReasonService.save(creationReason);
             } else creationReasonService.save(new CreationReason(code, name));
         }
         if(handbook.equals("InfoTypeCode")) {
-            InfoTypeCode infoTypeCode = infoTypeCodeService.findByCode(code);
+            InfoTypeCode infoTypeCode = infoTypeCodeService.findByCode(prevValue);
             if (infoTypeCode != null) {
                 infoTypeCode.setInfo(new Info(code, name));
                 infoTypeCodeService.save(infoTypeCode);
             } else infoTypeCodeService.save(new InfoTypeCode(code, name));
         }
         if(handbook.equals("ParticipantStatus")) {
-            ParticipantStatus participantStatus = participantStatusService.findByCode(code);
+            ParticipantStatus participantStatus = participantStatusService.findByCode(prevValue);
             if (participantStatus != null) {
                 participantStatus.setInfo(new Info(code, name));
                 participantStatusService.save(participantStatus);
             } else participantStatusService.save(new ParticipantStatus(code, name));
         }
         if(handbook.equals("PtType")){
-            PtType ptType = ptTypeService.findByCode(code);
+            PtType ptType = ptTypeService.findByCode(prevValue);
             if (ptType != null) {
                 ptType.setInfo(new Info(code, name));
                 ptTypeService.save(ptType);
             } else ptTypeService.save(new PtType(code, name));
         }
         if(handbook.equals("RegulationAccountType")) {
-            RegulationAccountType regulationAccountType = regulationAccountTypeService.findByCode(code);
+            RegulationAccountType regulationAccountType = regulationAccountTypeService.findByCode(prevValue);
             if (regulationAccountType != null) {
                 regulationAccountType.setInfo(new Info(code, name));
                 regulationAccountTypeService.save(regulationAccountType);
             } else regulationAccountTypeService.save(new RegulationAccountType(code, name));
         }
         if(handbook.equals("Rstr")){
-            Rstr rstr  = rstrService.findByCode(code);
+            Rstr rstr  = rstrService.findByCode(prevValue);
             if (rstr != null) {
                 rstr.setInfo(new Info(code, name));
                 rstrService.save(rstr);
             } else rstrService.save(new Rstr(code, name));
         }
         if(handbook.equals("Srvcs")){
-            Srvcs srvcs = srvcsService.findByCode(code);
+            Srvcs srvcs = srvcsService.findByCode(prevValue);
             if (srvcs != null) {
                 srvcs.setInfo(new Info(code, name));
                 srvcsService.save(srvcs);
             } else srvcsService.save(new Srvcs(code, name));
         }
         if(handbook.equals("XchType")){
-            XchType xchType = xchTypeService.findByCode(code);
+            XchType xchType = xchTypeService.findByCode(prevValue);
             if (xchType != null) {
                 xchType.setInfo(new Info(code, name));
                 xchTypeService.save(xchType);
