@@ -4,6 +4,8 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.opencode.ParserCB.entities.cbrf.*;
 import com.opencode.ParserCB.entities.cbrf_reference.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,59 +16,49 @@ import java.util.List;
 
 
 @Service
+@AllArgsConstructor
 public class MainParserService {
 
-    @Autowired
-    private  InfoTypeCodeService infoTypeCodeService;
+    private final InfoTypeCodeService infoTypeCodeService;
 
-    @Autowired
-    private ChangeTypeService changeTypeService;
+    private final ChangeTypeService changeTypeService;
 
-    @Autowired
-    private CreationReasonService creationReasonService;
-    @Autowired
-    private AccountStatusService accountStatusService;
+    private final CreationReasonService creationReasonService;
 
-    @Autowired
-    private AccRstrListService accRstrListService;
+    private final AccountStatusService accountStatusService;
 
-    @Autowired
-    private AccRstrService accRstrService;
+    private final AccRstrListService accRstrListService;
 
-    @Autowired
-    private RegulationAccountTypeService regulationAccountTypeService;
+    private final AccRstrService accRstrService;
 
-    @Autowired
-    private RstrListService rstrListService;
+    private final RegulationAccountTypeService regulationAccountTypeService;
 
-    @Autowired
-    private PtTypeService ptTypeService;
+    private final RstrListService rstrListService;
 
-    @Autowired
-    private XchTypeService xchTypeService;
+    private final PtTypeService ptTypeService;
 
-    @Autowired
-    private SrvcsService srvcsService;
+    private final XchTypeService xchTypeService;
 
-    @Autowired
-    private RstrService rstrService;
+    private final SrvcsService srvcsService;
 
-    @Autowired
-    private ParticipantInfoService participantInfoService;
+    private final RstrService rstrService;
 
-    @Autowired
-    private ParticipantStatusService participantStatusService;
-    @Autowired
-    private Ed807Service ed807Service;
+    private final ParticipantInfoService participantInfoService;
 
-    @Autowired
-    private BicDirectoryEntryService bicDirectoryEntryService;
+    private final ParticipantStatusService participantStatusService;
 
-    @Autowired
-    private AccountService accountService;
+    private final Ed807Service ed807Service;
 
-    @Autowired
-    private SwBicsService swBicsService;
+    private final BicDirectoryEntryService bicDirectoryEntryService;
+
+    private final AccountService accountService;
+
+    private final SwBicsService swBicsService;
+
+
+    public List<Ed807> getEdFiles(){
+        return ed807Service.findAll();
+    }
 
     public void parseFile(InputStream file) throws IOException {
         try {
@@ -76,8 +68,12 @@ public class MainParserService {
             xmlMapper.registerModule(new JavaTimeModule());
             Ed807 ed807 = xmlMapper.readValue(file, Ed807.class);
 
-            CreationReason creationReason = creationReasonService.findByCode(ed807.getCreationReason().getInfo().getCode());
-            InfoTypeCode infoTypeCode = infoTypeCodeService.findByCode(ed807.getInfoTypeCode().getInfo().getCode());
+            CreationReason creationReason = creationReasonService.findByCode(ed807
+                    .getCreationReason()
+                    .getCode());
+            InfoTypeCode infoTypeCode = infoTypeCodeService.findByCode(ed807
+                    .getInfoTypeCode()
+                    .getCode());
 
             ed807.setCreationReason(creationReason);
             ed807.setInfoTypeCode(infoTypeCode);
@@ -91,7 +87,6 @@ public class MainParserService {
                 ChangeType changeType = entry.getChangeType();
                 if (changeType != null){
                     entry.setChangeType(changeTypeService.findByCode(changeType
-                            .getInfo()
                             .getCode()));
                 }
                 //Сохранение ParticipantInfo, привязанного к данному БИК
@@ -99,19 +94,15 @@ public class MainParserService {
 
                 ParticipantStatus participantStatus = participantStatusService.findByCode(participantInfo
                         .getParticipantStatus()
-                        .getInfo()
                         .getCode());
                 Srvcs srvcs = srvcsService.findByCode(participantInfo
                         .getSrvcs()
-                        .getInfo()
                         .getCode());
                 XchType xchType = xchTypeService.findByCode(participantInfo
                         .getXchType()
-                        .getInfo()
                         .getCode());
                 PtType ptType = ptTypeService.findByCode(participantInfo
                         .getPtType()
-                        .getInfo()
                         .getCode());
 
                 RstrList rstrList = participantInfo.getRstrList();
@@ -119,7 +110,6 @@ public class MainParserService {
                 if (rstrList != null) {
                     Rstr rstr = rstrService.findByCode(rstrList
                             .getRstr()
-                            .getInfo()
                             .getCode());
 
                     rstrList.setRstr(rstr);
@@ -147,18 +137,15 @@ public class MainParserService {
                     acc.setBicDirectoryEntry(entry);
 
                     AccountStatus accountStatus = accountStatusService.findByCode(acc.getAccountStatus()
-                            .getInfo()
                             .getCode());
                     RegulationAccountType regulationAccountType = regulationAccountTypeService.findByCode(acc
                             .getRegulationAccountType()
-                            .getInfo()
                             .getCode());
 
                     AccRstrList accRstrList = acc.getAccRstrList();
                     if (accRstrList != null){
                         AccRstr accRstr = accRstrService.findByCode(accRstrList.
                                 getAccRstr().
-                                getInfo().
                                 getCode());
                         accRstrList.setAccRstr(accRstr);
                         accRstrListService.save(accRstrList);
@@ -171,6 +158,7 @@ public class MainParserService {
                 }
             }
         }catch (Exception e){
+            e.printStackTrace();
             throw e;
         }
     }
@@ -208,79 +196,109 @@ public class MainParserService {
         if(handbook.equals("AccountStatus")){
             AccountStatus accountStatus = accountStatusService.findByCode(prevValue);
             if (accountStatus != null){
-                accountStatus.setInfo(new Info(code, name));
+                accountStatus.setName(name);
+                accountStatus.setCode(code);
                 accountStatusService.save(accountStatus);
             }else accountStatusService.save(new AccountStatus(code, name));
         }
         if(handbook.equals("AccRstr")){
             AccRstr accRstr = accRstrService.findByCode(prevValue);
             if (accRstr != null) {
-                accRstr.setInfo(new Info(code, name));
+                accRstr.setName(name);
+                accRstr.setCode(code);
                 accRstrService.save(accRstr);
             } else accRstrService.save(new AccRstr(code, name));
         }
         if(handbook.equals("ChangeType")) {
             ChangeType changeType = changeTypeService.findByCode(prevValue);
             if (changeType != null){
-                changeType.setInfo(new Info(code, name));
+                changeType.setName(name);
+                changeType.setCode(code);
                 changeTypeService.save(changeType);
             } else changeTypeService.save(new ChangeType(code, name));
         }
         if(handbook.equals("CreationReason")) {
             CreationReason creationReason = creationReasonService.findByCode(prevValue);
             if (creationReason != null) {
-                creationReason.setInfo(new Info(code, name));
+                creationReason.setName(name);
+                creationReason.setCode(code);
                 creationReasonService.save(creationReason);
             } else creationReasonService.save(new CreationReason(code, name));
         }
         if(handbook.equals("InfoTypeCode")) {
             InfoTypeCode infoTypeCode = infoTypeCodeService.findByCode(prevValue);
             if (infoTypeCode != null) {
-                infoTypeCode.setInfo(new Info(code, name));
+                infoTypeCode.setName(name);
+                infoTypeCode.setCode(code);
                 infoTypeCodeService.save(infoTypeCode);
             } else infoTypeCodeService.save(new InfoTypeCode(code, name));
         }
         if(handbook.equals("ParticipantStatus")) {
             ParticipantStatus participantStatus = participantStatusService.findByCode(prevValue);
             if (participantStatus != null) {
-                participantStatus.setInfo(new Info(code, name));
+                participantStatus.setName(name);
+                participantStatus.setCode(code);
                 participantStatusService.save(participantStatus);
             } else participantStatusService.save(new ParticipantStatus(code, name));
         }
         if(handbook.equals("PtType")){
             PtType ptType = ptTypeService.findByCode(prevValue);
             if (ptType != null) {
-                ptType.setInfo(new Info(code, name));
+                ptType.setName(name);
+                ptType.setCode(code);
                 ptTypeService.save(ptType);
             } else ptTypeService.save(new PtType(code, name));
         }
         if(handbook.equals("RegulationAccountType")) {
             RegulationAccountType regulationAccountType = regulationAccountTypeService.findByCode(prevValue);
             if (regulationAccountType != null) {
-                regulationAccountType.setInfo(new Info(code, name));
+                regulationAccountType.setName(name);
+                regulationAccountType.setCode(code);
                 regulationAccountTypeService.save(regulationAccountType);
             } else regulationAccountTypeService.save(new RegulationAccountType(code, name));
         }
         if(handbook.equals("Rstr")){
             Rstr rstr  = rstrService.findByCode(prevValue);
             if (rstr != null) {
-                rstr.setInfo(new Info(code, name));
+                rstr.setName(name);
+                rstr.setCode(code);
                 rstrService.save(rstr);
             } else rstrService.save(new Rstr(code, name));
         }
         if(handbook.equals("Srvcs")){
             Srvcs srvcs = srvcsService.findByCode(prevValue);
             if (srvcs != null) {
-                srvcs.setInfo(new Info(code, name));
+                srvcs.setName(name);
+                srvcs.setCode(code);
                 srvcsService.save(srvcs);
             } else srvcsService.save(new Srvcs(code, name));
         }
         if(handbook.equals("XchType")){
             XchType xchType = xchTypeService.findByCode(prevValue);
             if (xchType != null) {
-                xchType.setInfo(new Info(code, name));
+                xchType.setName(name);
+                xchType.setCode(code);
                 xchTypeService.save(xchType);
-            } else  xchTypeService.save(new XchType(code, name));
+            } else  {
+                xchTypeService.save(new XchType(code, name));
+            }
         }
+    }
+
+    public List<String> getListOfHandbooks(){
+        ArrayList<String> options = new ArrayList<>();
+        options.add("AccountStatus");
+        options.add("AccRstr");
+        options.add("ChangeType");
+        options.add("CreationReason");
+        options.add("InfoTypeCode");
+        options.add("ParticipantStatus");
+        options.add("PtType");
+        options.add("RegulationAccountType");
+        options.add("Rstr");
+        options.add("Srvcs");
+        options.add("XchType");
+
+        return options;
     }
 }

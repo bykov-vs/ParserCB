@@ -21,22 +21,11 @@ public class MainController implements WebMvcConfigurer {
 
     @GetMapping("/")
     public String index(Model model) {
-        ArrayList<String> options = new ArrayList<>();
-        options.add("AccountStatus");
-        options.add("AccRstr");
-        options.add("ChangeType");
-        options.add("CreationReason");
-        options.add("InfoTypeCode");
-        options.add("ParticipantStatus");
-        options.add("PtType");
-        options.add("RegulationAccountType");
-        options.add("Rstr");
-        options.add("Srvcs");
-        options.add("XchType");
-
+        model.addAttribute("eds", mainParserService.getEdFiles());
         model.addAttribute("contentChange", false);
-        model.addAttribute("handbooks", options);
+        model.addAttribute("handbooks", mainParserService.getListOfHandbooks());
         model.addAttribute("hidden", true);
+
         return "index";
     }
 
@@ -48,46 +37,23 @@ public class MainController implements WebMvcConfigurer {
             model.addAttribute("errorFile", "Ошибка чтения файла!");
         }
 
-        ArrayList<String> options = new ArrayList<>();
-        options.add("AccountStatus");
-        options.add("AccRstr");
-        options.add("ChangeType");
-        options.add("CreationReason");
-        options.add("InfoTypeCode");
-        options.add("ParticipantStatus");
-        options.add("PtType");
-        options.add("RegulationAccountType");
-        options.add("Rstr");
-        options.add("Srvcs");
-        options.add("XchType");
-
-        model.addAttribute("handbooks", options);
+        model.addAttribute("handbooks", mainParserService.getListOfHandbooks());
         model.addAttribute("hidden", true);
+
         return "redirect:/";
     }
 
     @PostMapping("/")
     public String changeHandbook(@RequestParam("handbook") String handbook, Model model) {
         List<?> information = mainParserService.getInfoHandbook(handbook);
-        ArrayList<String> options = new ArrayList<>();
-        options.add("AccountStatus");
-        options.add("AccRstr");
-        options.add("ChangeType");
-        options.add("CreationReason");
-        options.add("InfoTypeCode");
-        options.add("ParticipantStatus");
-        options.add("PtType");
-        options.add("RegulationAccountType");
-        options.add("Rstr");
-        options.add("Srvcs");
-        options.add("XchType");
-
-        model.addAttribute("handbooks", options);
+        model.addAttribute("eds", mainParserService.getEdFiles());
+        model.addAttribute("handbooks", mainParserService.getListOfHandbooks());
         model.addAttribute("information", information);
         model.addAttribute("hidden", false);
         model.addAttribute("handbook", handbook);
         model.addAttribute("changeEntityKey", false);
         model.addAttribute("addEntityKey", false);
+
         return "index";
     }
 

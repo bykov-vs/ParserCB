@@ -1,5 +1,6 @@
 package com.opencode.ParserCB.entities.cbrf_reference;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,24 +9,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "participant_status")
-@Getter
-@Setter
-@NoArgsConstructor
-public class ParticipantStatus {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "participant_status_id")
-    private int participantStatusId;
+@Data @NoArgsConstructor
+@AttributeOverride(name = "id", column = @Column(name = "participant_status_id"))
+public class ParticipantStatus extends Handbook{
 
-    @Embedded
-    private Info info;
-
-    public ParticipantStatus (String code){
-        this.info = new Info(code);
+    public ParticipantStatus(String code, String name){
+        super(code, name);
     }
 
-    public ParticipantStatus(String code, String name) {
-        this.info = new Info(code, name);
+    public ParticipantStatus(String code){
+        super(code);
     }
-
 }
