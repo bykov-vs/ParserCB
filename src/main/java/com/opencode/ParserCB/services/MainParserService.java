@@ -4,9 +4,8 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.opencode.ParserCB.entities.cbrf.*;
 import com.opencode.ParserCB.entities.cbrf_reference.*;
+import com.opencode.ParserCB.services.handbooks.*;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

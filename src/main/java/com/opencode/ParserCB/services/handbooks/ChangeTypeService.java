@@ -1,4 +1,4 @@
-package com.opencode.ParserCB.services;
+package com.opencode.ParserCB.services.handbooks;
 
 import com.opencode.ParserCB.entities.cbrf.Account;
 import com.opencode.ParserCB.entities.cbrf_reference.AccountStatus;
