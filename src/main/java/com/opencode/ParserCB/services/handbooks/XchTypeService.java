@@ -1,21 +1,16 @@
 package com.opencode.ParserCB.services.handbooks;
 
-import com.opencode.ParserCB.entities.cbrf.Account;
-import com.opencode.ParserCB.entities.cbrf_reference.AccRstr;
-import com.opencode.ParserCB.entities.cbrf_reference.AccountStatus;
 import com.opencode.ParserCB.entities.cbrf_reference.XchType;
-import com.opencode.ParserCB.repositories.AccRstrRepo;
-import com.opencode.ParserCB.repositories.XchTypeRepo;
-import com.opencode.ParserCB.services.exceptions.AccountNotFoundException;
+import com.opencode.ParserCB.repositories.HandbookRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class XchTypeService {
-    private final XchTypeRepo xchTypeRepo;
+    private final HandbookRepo<XchType> xchTypeRepo;
 
-    public XchTypeService(XchTypeRepo xchTypeRepo) {
+    public XchTypeService(HandbookRepo<XchType> xchTypeRepo) {
         this.xchTypeRepo = xchTypeRepo;
     }
 
@@ -27,12 +22,16 @@ public class XchTypeService {
         xchTypeRepo.save(xchType);
     }
 
-    public XchType find(int id) throws AccountNotFoundException {
+    /*public XchType find(int id) throws AccountNotFoundException {
         return xchTypeRepo.findById(id).orElseThrow(AccountNotFoundException::new);
-    }
+    }*/
 
     public List<XchType> findAll(){
-        return xchTypeRepo.findAll();
+
+        List<XchType> list = xchTypeRepo.findAll();
+        System.out.println(list.getClass());
+
+        return list;
     }
 
     public void delete(XchType xchType) {

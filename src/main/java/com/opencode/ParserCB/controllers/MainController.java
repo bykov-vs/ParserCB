@@ -1,5 +1,8 @@
 package com.opencode.ParserCB.controllers;
 
+import com.opencode.ParserCB.entities.cbrf_reference.Handbook;
+import com.opencode.ParserCB.entities.cbrf_reference.XchType;
+import com.opencode.ParserCB.services.HandbookService;
 import com.opencode.ParserCB.services.MainParserService;
 import com.opencode.ParserCB.services.exceptions.CodeAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,8 @@ public class MainController implements WebMvcConfigurer {
 
     @Autowired
     private MainParserService mainParserService;
+
+    private HandbookService<XchType> handbookService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -46,6 +51,10 @@ public class MainController implements WebMvcConfigurer {
     @PostMapping("/")
     public String changeHandbook(@RequestParam("handbook") String handbook, Model model) {
         List<?> information = mainParserService.getInfoHandbook(handbook);
+        List<XchType> xchTypeList = handbookService.findAll();
+        for (XchType xchType : xchTypeList){
+            System.out.println(xchType.getCode());
+        }
         model.addAttribute("eds", mainParserService.getEdFiles());
         model.addAttribute("handbooks", mainParserService.getListOfHandbooks());
         model.addAttribute("information", information);

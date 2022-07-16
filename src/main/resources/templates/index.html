@@ -43,10 +43,10 @@
                         <table class="mt-2 table table-info table-striped" >
                             <input th:name="handbook" th:value="${handbook}" hidden="true"/>
                             <tr th:each="i : ${information}">
-                                <td><input type="radio" th:name="code" th:value="${i.info.code}" required
+                                <td><input type="radio" th:name="code" th:value="${i.code}" required
                                            class="form-check-input"></td>
-                                <td th:text="${i.info.code}"></td>
-                                <td th:text="${i.info.name}"></td>
+                                <td th:text="${i.code}"></td>
+                                <td th:text="${i.name}"></td>
                             </tr>
                         </table>
                         <div th:if="${!hidden}" class="d-grid gap-2 d-md-flex justify-content-md-start">
