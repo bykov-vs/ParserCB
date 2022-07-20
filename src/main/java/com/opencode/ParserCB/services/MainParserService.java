@@ -4,8 +4,6 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.opencode.ParserCB.entities.cbrf.*;
 import com.opencode.ParserCB.entities.cbrf_reference.*;
-import com.opencode.ParserCB.repositories.handbooks.HandbookRepositoryFactory;
-import com.opencode.ParserCB.services.handbooks.*;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -22,39 +20,17 @@ public class MainParserService {
 
     private final ApplicationContext context;
 
-    private final InfoTypeCodeService infoTypeCodeService;
-
-    private final ChangeTypeService changeTypeService;
-
-    private final CreationReasonService creationReasonService;
-
-    private final AccountStatusService accountStatusService;
-
     private final AccRstrListService accRstrListService;
 
-    private final AccRstrService accRstrService;
-
-    private final RegulationAccountTypeService regulationAccountTypeService;
-
-    private final RstrListService rstrListService;
-
-    private final PtTypeService ptTypeService;
-
-    private final XchTypeService xchTypeService;
-
-    private final SrvcsService srvcsService;
-
-    private final RstrService rstrService;
-
     private final ParticipantInfoService participantInfoService;
-
-    private final ParticipantStatusService participantStatusService;
 
     private final Ed807Service ed807Service;
 
     private final BicDirectoryEntryService bicDirectoryEntryService;
 
     private final AccountService accountService;
+
+    private final RstrListService rstrListService;
 
     private final SwBicsService swBicsService;
 
@@ -66,16 +42,22 @@ public class MainParserService {
 
     public void parseFile(InputStream file) throws IOException {
         try {
-            System.out.println();
+
 
             XmlMapper xmlMapper = new XmlMapper();
             xmlMapper.registerModule(new JavaTimeModule());
+
             Ed807 ed807 = xmlMapper.readValue(file, Ed807.class);
 
-            CreationReason creationReason = creationReasonService.findByCode(ed807
+            HandbookService<Handbook> handbookService;
+
+            handbookService = new HandbookService<>(context, "CreationReason");
+            CreationReason creationReason = (CreationReason) handbookService.findByCode(ed807
                     .getCreationReason()
                     .getCode());
-            InfoTypeCode infoTypeCode = infoTypeCodeService.findByCode(ed807
+
+            handbookService = new HandbookService<>(context, "InfoTypeCode");
+            InfoTypeCode infoTypeCode = (InfoTypeCode) handbookService.findByCode(ed807
                     .getInfoTypeCode()
                     .getCode());
 
@@ -85,34 +67,53 @@ public class MainParserService {
 
             ArrayList<BicDirectoryEntry> bicDirectoryEntries = ed807.getBicDirectoryEntries();
 
+            HandbookService<ChangeType> changeTypeHandbookService = new HandbookService<>(context,
+                    "ChangeType");
+            HandbookService<ParticipantStatus> participantStatusHandbookService = new HandbookService<>(context,
+                    "ParticipantStatus");
+            HandbookService<Srvcs> srvcsHandbookService = new HandbookService<>(context,
+                    "Srvcs");
+            HandbookService<XchType> xchTypeHandbookService = new HandbookService<>(context,
+                    "XchType");
+            HandbookService<PtType> ptTypeHandbookService = new HandbookService<>(context,
+                    "PtType");
+            HandbookService<Rstr> rstrHandbookService = new HandbookService<>(context,
+                    "Rstr");
+            HandbookService<AccountStatus> accountStatusHandbookService = new HandbookService<>(context,
+                    "AccountStatus");
+            HandbookService<RegulationAccountType> regulationAccountTypeHandbookService = new HandbookService<>(context,
+                    "RegulationAccountType");
+            HandbookService<AccRstr> accRstrHandbookService = new HandbookService<>(context,
+                    "AccRstr");
+
             for (BicDirectoryEntry entry : bicDirectoryEntries) {
                 entry.setEd(ed807);
 
                 ChangeType changeType = entry.getChangeType();
                 if (changeType != null){
-                    entry.setChangeType(changeTypeService.findByCode(changeType
+                    entry.setChangeType(changeTypeHandbookService.findByCode(changeType
                             .getCode()));
                 }
                 //Сохранение ParticipantInfo, привязанного к данному БИК
                 ParticipantInfo participantInfo = entry.getParticipantInfo();
 
-                ParticipantStatus participantStatus = participantStatusService.findByCode(participantInfo
+                ParticipantStatus participantStatus = participantStatusHandbookService.findByCode(participantInfo
                         .getParticipantStatus()
                         .getCode());
-                Srvcs srvcs = srvcsService.findByCode(participantInfo
+                Srvcs srvcs = srvcsHandbookService.findByCode(participantInfo
                         .getSrvcs()
                         .getCode());
-                XchType xchType = xchTypeService.findByCode(participantInfo
+                XchType xchType = xchTypeHandbookService.findByCode(participantInfo
                         .getXchType()
                         .getCode());
-                PtType ptType = ptTypeService.findByCode(participantInfo
+                PtType ptType = ptTypeHandbookService.findByCode(participantInfo
                         .getPtType()
                         .getCode());
 
                 RstrList rstrList = participantInfo.getRstrList();
 
                 if (rstrList != null) {
-                    Rstr rstr = rstrService.findByCode(rstrList
+                    Rstr rstr = rstrHandbookService.findByCode(rstrList
                             .getRstr()
                             .getCode());
 
@@ -140,15 +141,15 @@ public class MainParserService {
                 for (Account acc : entry.getAccounts()) {
                     acc.setBicDirectoryEntry(entry);
 
-                    AccountStatus accountStatus = accountStatusService.findByCode(acc.getAccountStatus()
+                    AccountStatus accountStatus = accountStatusHandbookService.findByCode(acc.getAccountStatus()
                             .getCode());
-                    RegulationAccountType regulationAccountType = regulationAccountTypeService.findByCode(acc
+                    RegulationAccountType regulationAccountType = regulationAccountTypeHandbookService.findByCode(acc
                             .getRegulationAccountType()
                             .getCode());
 
                     AccRstrList accRstrList = acc.getAccRstrList();
                     if (accRstrList != null){
-                        AccRstr accRstr = accRstrService.findByCode(accRstrList.
+                        AccRstr accRstr = accRstrHandbookService.findByCode(accRstrList.
                                 getAccRstr().
                                 getCode());
                         accRstrList.setAccRstr(accRstr);

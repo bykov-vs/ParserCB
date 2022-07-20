@@ -1,11 +1,12 @@
 package com.opencode.ParserCB.repositories.handbooks;
 
+import com.opencode.ParserCB.entities.cbrf_reference.Handbook;
 import org.springframework.context.ApplicationContext;
 
 
 public class HandbookRepositoryFactory {
 
-    public static HandbookRepo<?> getRepository(ApplicationContext context, String typeRepo) {
+    public static HandbookRepo<? extends Handbook> getRepository(ApplicationContext context, String typeRepo) {
         switch (typeRepo) {
             case "AccountStatus":
                 return context.getBean(AccountStatusRepo.class);

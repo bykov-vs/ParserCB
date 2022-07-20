@@ -1,7 +1,7 @@
 package com.opencode.ParserCB.controllers;
 
 import com.opencode.ParserCB.entities.cbrf_reference.XchType;
-import com.opencode.ParserCB.services.handbooks.HandbookService;
+import com.opencode.ParserCB.services.HandbookService;
 import com.opencode.ParserCB.services.MainParserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.opencode.ParserCB.services.handbooks;
+package com.opencode.ParserCB.services;
 
 import com.opencode.ParserCB.entities.cbrf_reference.Handbook;
 import com.opencode.ParserCB.repositories.handbooks.HandbookRepo;
