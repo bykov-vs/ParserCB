@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "xch_type")
 @Table(name = "xch_type")
 @Data @NoArgsConstructor
 @AttributeOverride(name = "id", column = @Column(name = "xch_type_id"))

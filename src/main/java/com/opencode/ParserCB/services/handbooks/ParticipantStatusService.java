@@ -1,12 +1,7 @@
 package com.opencode.ParserCB.services.handbooks;
 
-import com.opencode.ParserCB.entities.cbrf.Account;
-import com.opencode.ParserCB.entities.cbrf_reference.AccRstr;
-import com.opencode.ParserCB.entities.cbrf_reference.AccountStatus;
 import com.opencode.ParserCB.entities.cbrf_reference.ParticipantStatus;
-import com.opencode.ParserCB.repositories.AccRstrRepo;
-import com.opencode.ParserCB.repositories.ParticipantStatusRepo;
-import com.opencode.ParserCB.services.exceptions.AccountNotFoundException;
+import com.opencode.ParserCB.repositories.handbooks.ParticipantStatusRepo;
 import com.opencode.ParserCB.services.exceptions.ParticipantStatusNotFoundException;
 import org.springframework.stereotype.Service;
 

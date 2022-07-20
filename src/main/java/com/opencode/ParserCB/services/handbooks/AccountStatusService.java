@@ -1,8 +1,7 @@
 package com.opencode.ParserCB.services.handbooks;
 
-import com.opencode.ParserCB.entities.cbrf.Account;
 import com.opencode.ParserCB.entities.cbrf_reference.AccountStatus;
-import com.opencode.ParserCB.repositories.AccountStatusRepo;
+import com.opencode.ParserCB.repositories.handbooks.AccountStatusRepo;
 import com.opencode.ParserCB.services.exceptions.AccountStatusNotFoundException;
 import org.springframework.stereotype.Service;
 

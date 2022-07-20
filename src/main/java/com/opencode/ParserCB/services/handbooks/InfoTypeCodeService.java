@@ -1,11 +1,7 @@
 package com.opencode.ParserCB.services.handbooks;
 
-import com.opencode.ParserCB.entities.cbrf.Account;
-import com.opencode.ParserCB.entities.cbrf_reference.AccRstr;
 import com.opencode.ParserCB.entities.cbrf_reference.InfoTypeCode;
-import com.opencode.ParserCB.repositories.AccRstrRepo;
-import com.opencode.ParserCB.repositories.InfoTypeCodeRepo;
-import com.opencode.ParserCB.services.exceptions.AccountNotFoundException;
+import com.opencode.ParserCB.repositories.handbooks.InfoTypeCodeRepo;
 import com.opencode.ParserCB.services.exceptions.InfoTypeCodeNotFoundException;
 import org.springframework.stereotype.Service;
 

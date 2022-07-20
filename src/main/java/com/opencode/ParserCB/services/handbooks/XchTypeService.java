@@ -1,7 +1,7 @@
 package com.opencode.ParserCB.services.handbooks;
 
 import com.opencode.ParserCB.entities.cbrf_reference.XchType;
-import com.opencode.ParserCB.repositories.HandbookRepo;
+import com.opencode.ParserCB.repositories.handbooks.HandbookRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

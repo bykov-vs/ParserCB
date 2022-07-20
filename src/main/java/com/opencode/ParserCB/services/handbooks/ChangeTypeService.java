@@ -1,11 +1,7 @@
 package com.opencode.ParserCB.services.handbooks;
 
-import com.opencode.ParserCB.entities.cbrf.Account;
-import com.opencode.ParserCB.entities.cbrf_reference.AccountStatus;
 import com.opencode.ParserCB.entities.cbrf_reference.ChangeType;
-import com.opencode.ParserCB.repositories.AccountRepo;
-import com.opencode.ParserCB.repositories.ChangeTypeRepo;
-import com.opencode.ParserCB.services.exceptions.AccountNotFoundException;
+import com.opencode.ParserCB.repositories.handbooks.ChangeTypeRepo;
 import com.opencode.ParserCB.services.exceptions.ChangeTypeNotFoundException;
 import org.springframework.stereotype.Service;
 

@@ -1,10 +1,7 @@
 package com.opencode.ParserCB.services.handbooks;
 
-import com.opencode.ParserCB.entities.cbrf.Account;
-import com.opencode.ParserCB.entities.cbrf_reference.AccRstr;
 import com.opencode.ParserCB.entities.cbrf_reference.RegulationAccountType;
-import com.opencode.ParserCB.repositories.AccRstrRepo;
-import com.opencode.ParserCB.repositories.RegulationAccountTypeRepo;
+import com.opencode.ParserCB.repositories.handbooks.RegulationAccountTypeRepo;
 import com.opencode.ParserCB.services.exceptions.AccountNotFoundException;
 import com.opencode.ParserCB.services.exceptions.RegulationAccountTypeNotFoundException;
 import org.springframework.stereotype.Service;
