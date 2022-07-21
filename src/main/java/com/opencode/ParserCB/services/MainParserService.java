@@ -7,6 +7,7 @@ import com.opencode.ParserCB.entities.cbrf_reference.*;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,8 +43,6 @@ public class MainParserService {
 
     public void parseFile(InputStream file) throws IOException {
         try {
-
-
             XmlMapper xmlMapper = new XmlMapper();
             xmlMapper.registerModule(new JavaTimeModule());
 

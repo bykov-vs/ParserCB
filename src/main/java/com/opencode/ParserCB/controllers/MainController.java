@@ -18,8 +18,6 @@ public class MainController implements WebMvcConfigurer {
     @Autowired
     private MainParserService mainParserService;
 
-    private HandbookService<XchType> handbookService;
-
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("eds", mainParserService.getEdFiles());
@@ -57,10 +55,5 @@ public class MainController implements WebMvcConfigurer {
         model.addAttribute("addEntityKey", false);
 
         return "index";
-    }
-
-    @GetMapping("/back")
-    public String back(){
-        return "redirect:/";
     }
 }
