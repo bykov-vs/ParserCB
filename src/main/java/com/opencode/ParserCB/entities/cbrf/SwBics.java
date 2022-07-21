@@ -1,6 +1,7 @@
 package com.opencode.ParserCB.entities.cbrf;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,8 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "swbics")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class SwBics {
 

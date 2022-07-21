@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.opencode.ParserCB.entities.cbrf_reference.ChangeType;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,8 +14,7 @@ import java.util.ArrayList;
 
 @Entity
 @Table(name = "bic_directory_entry")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class BicDirectoryEntry {

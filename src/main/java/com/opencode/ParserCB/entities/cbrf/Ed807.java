@@ -6,6 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import com.opencode.ParserCB.entities.cbrf_reference.CreationReason;
 import com.opencode.ParserCB.entities.cbrf_reference.InfoTypeCode;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,8 +18,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "ed807")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @JacksonXmlRootElement(localName = "ED807")
 @JsonIgnoreProperties(ignoreUnknown=true)

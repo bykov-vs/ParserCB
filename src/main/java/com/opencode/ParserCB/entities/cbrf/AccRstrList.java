@@ -2,6 +2,7 @@ package com.opencode.ParserCB.entities.cbrf;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.opencode.ParserCB.entities.cbrf_reference.AccRstr;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +12,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "acc_rstr_list")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class AccRstrList {
 
