@@ -1,31 +1,20 @@
 package com.opencode.ParserCB.entities.cbrf_reference;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "xch_type")
 @Table(name = "xch_type")
-@Getter
-@Setter
-@NoArgsConstructor
-public class XchType {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "xch_type_id")
-    private int xchTypeId;
+@Data @NoArgsConstructor
+@AttributeOverride(name = "id", column = @Column(name = "xch_type_id"))
+public class XchType extends Handbook{
 
-    @Embedded
-    private Info info;
-
-    public XchType (String code){
-        this.info = new Info(code);
+    public XchType(String code, String name){
+        super(code, name);
     }
 
-    public XchType(String code, String name) {
-        this.info = new Info(code, name);
+    public XchType(String code){
+        super(code);
     }
-
 }

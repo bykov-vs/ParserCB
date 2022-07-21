@@ -3,14 +3,15 @@ package com.opencode.ParserCB.services;
 import com.opencode.ParserCB.entities.cbrf.Account;
 import com.opencode.ParserCB.repositories.AccountRepo;
 import com.opencode.ParserCB.services.exceptions.AccountNotFoundException;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AccountService {
-    private final AccountRepo accountRepo;
+public class AccountService{
+    private AccountRepo accountRepo;
 
     public AccountService(AccountRepo accountRepo) {
         this.accountRepo = accountRepo;

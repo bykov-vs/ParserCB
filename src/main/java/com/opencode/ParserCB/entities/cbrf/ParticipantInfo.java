@@ -7,6 +7,7 @@ import com.opencode.ParserCB.entities.cbrf_reference.ParticipantStatus;
 import com.opencode.ParserCB.entities.cbrf_reference.PtType;
 import com.opencode.ParserCB.entities.cbrf_reference.Srvcs;
 import com.opencode.ParserCB.entities.cbrf_reference.XchType;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,8 +17,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "participant_info")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ParticipantInfo {
