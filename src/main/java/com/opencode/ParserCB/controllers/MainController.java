@@ -1,5 +1,6 @@
 package com.opencode.ParserCB.controllers;
 
+import com.opencode.ParserCB.entities.cbrf_reference.Handbook;
 import com.opencode.ParserCB.entities.cbrf_reference.XchType;
 import com.opencode.ParserCB.services.HandbookService;
 import com.opencode.ParserCB.services.MainParserService;

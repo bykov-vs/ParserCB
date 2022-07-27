@@ -44,7 +44,10 @@
                             <input th:name="handbook" th:value="${handbook}" hidden="true"/>
                             <tr th:each="i : ${information}">
                                 <td><input type="radio" th:name="code" th:value="${i.code}" required
-                                           class="form-check-input"></td>
+                                           class="form-check-input">
+                                    <input th:name="name" th:value="${i.name}" hidden
+                                           class="form-check-input">
+                                </td>
                                 <td th:text="${i.code}"></td>
                                 <td th:text="${i.name}"></td>
                             </tr>
@@ -70,15 +73,17 @@
 
                     <div th:if="${changeEntityKey}">
                         <form th:action="@{/list/change}" method="post"  >
-                            <input type="text" th:name="prevValue" th:value="${prevValue}" hidden>
+                            <input type="text" th:name="prevCode" th:value="${prevCode}" hidden>
                             <input type="text" th:name="handbook" th:value="${handbook}" hidden>
                             <div class="input-group mb-2">
                                 <span class="input-group-text">Code</span>
-                                <input class="form-control" type="text" th:name="code" th:text="${code}" required/>
+                                <input class="form-control" type="text" th:name="code" th:value="${prevCode}" required/>
                             </div>
                             <div class="input-group mb-2">
                                 <span class="input-group-text">Name</span>
-                                <input class="form-control" type="text" th:name="name" required />
+                                <textarea class="form-control" th:name="name" th:value="${prevName}"
+                                          th:text="${prevName}" required>
+                                </textarea>
                             </div>
 
                             <div class=" d-grid gap-2 d-md-flex justify-content-end">
@@ -111,7 +116,7 @@
 
                                 <div class="input-group mb-2">
                                     <span class="input-group-text">Name</span>
-                                    <input class="form-control" type="text" th:name="name" required/>
+                                    <textarea class="form-control" th:name="name" required></textarea>
                                 </div>
                             <div class=" d-grid gap-2 d-md-flex justify-content-end">
                                 <button class="mt-2 mb-2 btn btn-primary" th:name="handbook" th:value="${handbook}"
