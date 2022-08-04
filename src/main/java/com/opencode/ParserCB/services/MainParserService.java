@@ -62,7 +62,7 @@ public class MainParserService {
             ed807.setInfoTypeCode(infoTypeCode);
             ed807Service.save(ed807);
 
-            ArrayList<BicDirectoryEntry> bicDirectoryEntries = ed807.getBicDirectoryEntries();
+            List<BicDirectoryEntry> bicDirectoryEntries = ed807.getBicDirectoryEntries();
 
             HandbookService<ChangeType> changeTypeHandbookService = new HandbookService<>(context,
                     "ChangeType");

@@ -34,4 +34,8 @@ public class BicDirectoryEntryService {
     public void delete(BicDirectoryEntry bicDirectoryEntry) {
         bicDirectoryEntryRepo.delete(bicDirectoryEntry);
     }
+
+    public List<BicDirectoryEntry> findAllByEd(int id) {
+        return bicDirectoryEntryRepo.findAllByEdId(id);
+    }
 }

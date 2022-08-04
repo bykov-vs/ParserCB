@@ -20,8 +20,11 @@
                 <span th:if="${errorFile}" th:text="${error}"></span>
 
                 <div class="d-flex justify-content-start fs-4">
-                    <ul >
-                        <li th:each="ed : ${eds}" th:text="'File: ' + ${ed.edNo} +'  ' + ${ed.creationDateTime}"></li>
+                    <ul th:each="ed : ${eds}" >
+                        <li><a th:text="'File: ' + ${ed.edNo} +'  ' + ${ed.creationDateTime}"
+                               th:href="@{/files/details(fileName=${ed.edNo})}"
+                               target="_blank"></a>
+                        </li>
                     </ul>
                 </div>
             </div>
