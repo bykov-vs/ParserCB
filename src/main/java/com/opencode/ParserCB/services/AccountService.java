@@ -36,4 +36,8 @@ public class AccountService{
     public void delete(Account account) {
         accountRepo.delete(account);
     }
+
+    public List<Account> findAllByBic(int bic) {
+        return accountRepo.findAllByEd(bic);
+    }
 }

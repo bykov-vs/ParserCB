@@ -3,6 +3,7 @@ package com.opencode.ParserCB.services;
 import com.opencode.ParserCB.entities.cbrf.Ed807;
 import com.opencode.ParserCB.repositories.Ed807Repo;
 import com.opencode.ParserCB.services.exceptions.Ed807NotFoundException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,5 +34,9 @@ public class Ed807Service {
 
     public void delete(Ed807 ed807) {
         ed807Repo.delete(ed807);
+    }
+
+    public Ed807 findEd(String edNo) {
+        return ed807Repo.findByEdNo(edNo).orElseThrow(Ed807NotFoundException::new);
     }
 }

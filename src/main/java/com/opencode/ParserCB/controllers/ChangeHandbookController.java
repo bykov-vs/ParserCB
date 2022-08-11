@@ -20,12 +20,15 @@ public class ChangeHandbookController {
     public String changeEntity(@RequestParam(value = "code") String code,
                                @RequestParam(value = "handbook") String handbook,
                                @RequestParam(value = "action") int action,
-                               Model model){
+                               @RequestParam(value = "name") String name,
+                               Model model) {
         model.addAttribute("contentChange", true);
-        if (action == 0){
+
+        if (action == 0) {
             model.addAttribute("handbook", handbook);
             model.addAttribute("action", action);
-            model.addAttribute("prevValue", code);
+            model.addAttribute("prevCode", code);
+            model.addAttribute("prevName", name);
             model.addAttribute("changeEntityKey", true);
             model.addAttribute("addEntityKey", false);
             model.addAttribute("hidden", true);
@@ -34,11 +37,11 @@ public class ChangeHandbookController {
         try {
             mainParserService.deleteHandbookEntity(handbook, code);
             model.addAttribute("hidden", true);
-            model.addAttribute("error","Успешно");
+            model.addAttribute("error", "Успешно");
             return "index";
-        }catch (Exception e){
+        } catch (Exception e) {
             model.addAttribute("hidden", true);
-            model.addAttribute("error","Неуспешно");
+            model.addAttribute("error", "Неуспешно");
             return "index";
         }
     }
@@ -47,8 +50,8 @@ public class ChangeHandbookController {
     public String changeEntityAndSave(@RequestParam(value = "code") String code,
                                       @RequestParam(value = "name") String name,
                                       @RequestParam(value = "handbook") String handbook,
-                                      @RequestParam(value = "prevValue") String prevValue,
-                                      Model model){
+                                      @RequestParam(value = "prevCode") String prevValue,
+                                      Model model) {
         mainParserService.saveHandbookEntity(code, name, handbook, prevValue);
         return "redirect:/";
     }

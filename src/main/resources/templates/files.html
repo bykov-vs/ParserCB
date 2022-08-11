@@ -1,0 +1,78 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-lg w-100 border border-primary relative bg-info text-dark bg-opacity-25 mt-2 position-relative text-center pt-5">
+        <h2 class="mb-5 fs-1">Парсер XML</h2>
+
+        <div th:if="${isEntered}">
+            <h3>Бики:</h3>
+            <table class="mt-2 table table-info table-striped" >
+                <thead>
+                    <tr>
+                        <td>БИК</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="b : ${bicPage.content}">
+                        <td th:text="${b.bic}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <nav class="navigation">
+                <div th:if="${bicPage.totalPages > 0}" class="pagination"
+                     >
+                    <a th:if="${bicPageNumber > 1}"
+                       th:href="@{/files/details(bicPageSize=${bicPage.size}, bicPageNumber=${bicPageNumber}-1, fileName=${file})}"
+                       class="page-item page-link">Назад
+                    </a>
+                    <a href=""
+                       th:text=${bicPageNumber}
+                       class="page-item page-link">
+                    </a>
+                    <a th:if="${bicPage.totalPages > bicPageNumber}"
+                       th:href="@{/files/details(bicPageSize=${bicPage.size}, bicPageNumber=${bicPageNumber}+1, fileName=${file})}"
+                       class="page-item page-link">Вперёд
+                    </a>
+                </div>
+            </nav>
+            <h3>Аккаунты:</h3>
+            <table class="mt-2 table table-info table-striped" >
+                <thead>
+                    <tr>
+                        <td>Аккаунт</td>
+                        <td>БИК</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="a : ${accountPage.content}">
+                        <td th:text="${a.account}"></td>
+                        <td th:text="${a.bicDirectoryEntry.bic}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <nav class="navigation">
+                <div th:if="${accountPage.totalPages > 0}" class="pagination"
+                >
+                    <a th:if="${accountPageNumber > 1}"
+                       th:href="@{/files/details(accountPageSize=${accountPage.size}, accountPageNumber=${accountPageNumber}-1, fileName=${file})}"
+                       class="page-item page-link">Назад
+                    </a>
+                    <a href=""
+                       th:text=${accountPageNumber}
+                       class="page-item page-link">
+                    </a>
+                    <a th:if="${accountPage.totalPages > accountPageNumber}"
+                       th:href="@{/files/details(accountPageSize=${accountPage.size}, accountPageNumber=${accountPageNumber}+1, fileName=${file})}"
+                       class="page-item page-link">Вперёд
+                    </a>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+</body>
+</html>

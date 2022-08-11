@@ -15,6 +15,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "ed807")
@@ -68,5 +69,5 @@ public class Ed807 {
     @Transient
     @JacksonXmlElementWrapper(useWrapping = false)
     @JacksonXmlProperty(localName = "BICDirectoryEntry")
-    private ArrayList<BicDirectoryEntry> bicDirectoryEntries = new ArrayList<>();
+    private List<BicDirectoryEntry> bicDirectoryEntries = new ArrayList<>();
 }

@@ -7,7 +7,6 @@ import com.opencode.ParserCB.entities.cbrf_reference.*;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,8 +35,7 @@ public class MainParserService {
     private final SwBicsService swBicsService;
 
 
-
-    public List<Ed807> getEdFiles(){
+    public List<Ed807> getEdFiles() {
         return ed807Service.findAll();
     }
 
@@ -64,7 +62,7 @@ public class MainParserService {
             ed807.setInfoTypeCode(infoTypeCode);
             ed807Service.save(ed807);
 
-            ArrayList<BicDirectoryEntry> bicDirectoryEntries = ed807.getBicDirectoryEntries();
+            List<BicDirectoryEntry> bicDirectoryEntries = ed807.getBicDirectoryEntries();
 
             HandbookService<ChangeType> changeTypeHandbookService = new HandbookService<>(context,
                     "ChangeType");
@@ -89,7 +87,7 @@ public class MainParserService {
                 entry.setEd(ed807);
 
                 ChangeType changeType = entry.getChangeType();
-                if (changeType != null){
+                if (changeType != null) {
                     entry.setChangeType(changeTypeHandbookService.findByCode(changeType
                             .getCode()));
                 }
@@ -147,7 +145,7 @@ public class MainParserService {
                             .getCode());
 
                     AccRstrList accRstrList = acc.getAccRstrList();
-                    if (accRstrList != null){
+                    if (accRstrList != null) {
                         AccRstr accRstr = accRstrHandbookService.findByCode(accRstrList.
                                 getAccRstr().
                                 getCode());
@@ -161,36 +159,37 @@ public class MainParserService {
                     accountService.save(acc);
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
     }
 
-    public List<? extends Handbook> getInfoHandbook(String handbook){
+    public List<? extends Handbook> getInfoHandbook(String handbook) {
         HandbookService<Handbook> handbookService = new HandbookService<>(context, handbook);
         return handbookService.findAll();
     }
 
-    public void deleteHandbookEntity(String handbook, String code){
+    public void deleteHandbookEntity(String handbook, String code) {
         HandbookService<Handbook> handbookService = new HandbookService<>(context, handbook);
         handbookService.delete(handbookService.findByCode(code));
     }
-    public void saveHandbookEntity(String code, String name, String handbook, String prevValue){
+
+    public void saveHandbookEntity(String code, String name, String handbook, String prevValue) {
         HandbookService<Handbook> handbookService = new HandbookService<>(context, handbook);
         Handbook record = handbookService.findByCode(code);
 
-        if (record != null){
+        if (record != null) {
             record.setCode(prevValue);
             record.setName(name);
 
             handbookService.save(record);
-        }else {
+        } else {
             handbookService.save(HandbookEntityFactory.getHandbookEntity(handbook, code, name));
         }
     }
 
-    public List<String> getListOfHandbooks(){
+    public List<String> getListOfHandbooks() {
         ArrayList<String> options = new ArrayList<>();
         options.add("AccountStatus");
         options.add("AccRstr");

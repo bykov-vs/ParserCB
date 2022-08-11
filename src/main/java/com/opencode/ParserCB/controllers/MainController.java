@@ -1,8 +1,10 @@
 package com.opencode.ParserCB.controllers;
 
+import com.opencode.ParserCB.entities.cbrf_reference.Handbook;
 import com.opencode.ParserCB.entities.cbrf_reference.XchType;
 import com.opencode.ParserCB.services.HandbookService;
 import com.opencode.ParserCB.services.MainParserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +15,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 public class MainController implements WebMvcConfigurer {
 
-    @Autowired
-    private MainParserService mainParserService;
+    private final MainParserService mainParserService;
 
     @GetMapping("/")
     public String index(Model model) {
